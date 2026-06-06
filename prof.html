@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professeur – IUA Claim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style-myiua.css">
+</head>
+<body>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo"> IUA Claim</div>
+        <nav class="sidebar-nav">
+            <a class="nav-item active" href="prof.html"><i class="fa-solid fa-chalkboard-user"></i> Réclamations</a>
+            <div style="display: none;" class="sidebar-section-label">Gestion</div>
+            <a style="display: none;" class="nav-item" href="#"><i class="fa-solid fa-chart-bar"></i> Statistiques</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="location.href='api/auth/logout.php'">
+                <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <div class="topbar">
+            <div class="topbar-title">
+                <h1>Gestion des Réclamations</h1>
+                <p>Traitez les réclamations de vos étudiants</p>
+            </div>
+            <div class="topbar-right">
+                <div class="user-badge">
+                    <div class="user-avatar"><i class="fa-solid fa-chalkboard-user" style="font-size:.8rem;"></i></div>
+                    <span id="nom_prof">Professeur</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-globe"></i></div>
+                <div class="stat-info"><small>Total réclamations</small><strong id="count_total">0</strong></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fa-solid fa-pause"></i></div>
+                <div class="stat-info"><small>En attente</small><strong id="count_pending">0</strong></div>
+            </div>
+        </div>
+
+        <!-- FILTRES -->
+        <div class="filter-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="filterNom" placeholder="Rechercher un étudiant...">
+            </div>
+            <select id="filterFiliere"><option value="">Toutes les filières</option></select>
+            <select id="filterNiveau">
+                <option value="">Tous les niveaux</option>
+                <option value="L1">Licence 1</option><option value="L2">Licence 2</option>
+                <option value="L3">Licence 3</option><option value="M1">Master 1</option>
+                <option value="M2">Master 2</option>
+            </select>
+            <select id="filterStatut">
+                <option value="">Tous les statuts</option>
+                <option value="EN_ATTENTE">En attente</option>
+                <option value="ACCEPTEE">Acceptée</option>
+                <option value="REFUSEE">Refusée</option>
+            </select>
+            <select id="filterType">
+                <option value="">Tous les types</option>
+                <option value="NOTE">Note / Moyenne</option>
+                <option value="EXAMEN">Examen</option>
+            </select>
+               
+            <button id="btnResetFilters" class="btn btn-danger btn-sm"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card">
+            <div class="card-head" style="display: flex; justify-content: space-around; gap: 50%;">
+            <div class="card-title"><i class="fa-solid fa-inbox"></i> Réclamations à traiter</div>
+                <div class="period_recla" style="display: flex; font-weight: 800;"><span style="transform: translateX(-1em)">De </span>
+                <div class="period_content">
+                    <input type="date" name="" id="dateDebut">
+                    /
+                    <input type="date" name="" id="dateFin">
+                </div>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Étudiant</th>
+                            <th>Niveau</th>
+                            <th>Filière</th>
+                            <th>Matière</th>
+                            <th>Note</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reclamation_body">
+                        <tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:30px;">Chargement...</td></tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+        <button id="btnPrecedent">Précédent</button>
+        <div id="numerosPage"></div>
+        <button id="btnSuivant">Suivant</button>
+    </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- MODAL TRAITEMENT -->
+<div id="reclamationModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-circle-info"></i> Traiter la réclamation</h3>
+            <button class="modal-close" id="closeX"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="info-grid">
+                <div class="info-item"><small>Étudiant & Filière</small><strong id="modalStudentName">—</strong></div>
+                <div class="info-item"><small>Matière</small><strong id="modalSubject">—</strong></div>
+                <div class="info-item"><small>Type</small><strong id="modalType">—</strong></div>
+                <div class="info-item"><small>Note actuelle → réclamée</small><strong id="modalNotes">—</strong></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Motif de l'étudiant</label>
+                <div id="modalMessage" class="message-box"></div>
+            </div>
+            <div id="pieceJointeZone" style="display:none;" class="form-group">
+                <label class="form-label">Pièce jointe</label>
+                <div id="pieceJointeContenu"></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Note finale accordée</label>
+                <input type="number" id="notefinale" class="form-control" placeholder="Ex: 14.5" step="0.01" min="0" max="20">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Votre décision / commentaire</label>
+                <textarea id="profResponse" class="form-control" rows="3" placeholder="Expliquez votre décision..." style="resize:vertical;"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnCancel">Annuler</button>
+            <button class="btn btn-danger" id="btnRefuser"><i class="fa-solid fa-xmark"></i> Refuser</button>
+            <button class="btn btn-success" id="btnSubmit"><i class="fa-solid fa-check"></i> Accepter</button>
+        </div>
+    </div>
+</div>
+ <footer style="display:flex; justify-content:center;">© 2026 Abdoul Hamid AMAH — Tous droits réservés</footer>
+<script>
+let toutesLesReclamations = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    chargerSession()
+    chargerReclamations();
+    configurerFiltres();
+});
+
+async function chargerReclamations() {
+    const tbody = document.getElementById('reclamation_body');
+    try {
+        const res = await fetch('api/reclamations/get_reclamations.php', { credentials:'include' });
+        const data = await res.json();
+        if (data.error) { tbody.innerHTML=`<tr><td colspan="8" style="color:red;text-align:center">Erreur : ${data.error}</td></tr>`; return; }
+        toutesLesReclamations = data;
+        remplirOptionsFiliere(data);
+        afficherDonnees(toutesLesReclamations);
+    } catch(err) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--danger);">Erreur serveur.</td></tr>';
+    }
+}
+
+function afficherDonnees(liste) {
+    const tbody = document.getElementById('reclamation_body');
+    let pending=0;
+    if (liste.length===0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:30px;">Aucune réclamation</td></tr>';
+        document.getElementById('count_total').textContent=0;
+        document.getElementById('count_pending').textContent=0;
+        return;
+    }
+    tbody.innerHTML = liste.map(r => {
+        if(r.statut==='EN_ATTENTE') pending++;
+        const typeBadge = r.type==='EXAMEN' ? `<span class="badge badge-purple">Examen</span>` : `<span class="badge badge-blue">Note</span>`;
+        const statBadge = r.statut==='EN_ATTENTE' ? 'badge-warning' : r.statut==='ACCEPTEE' ? 'badge-success' : 'badge-danger';
+        const noteBg = r.note_actuelle < 10 ? 'badge-danger' : 'badge-success';
+        const d = btoa(unescape(encodeURIComponent(JSON.stringify(r))));
+        return `<tr>
+            <td><strong>${r.nom} ${r.prenom}</strong></td>
+            <td>${r.niveau}</td>
+            <td>${r.nom_filiere}</td>
+            <td><span class="badge badge-blue">${r.matiere}</span></td>
+            <td><span class="badge ${noteBg}">${r.note_actuelle}</span></td>
+            <td>${typeBadge}</td>
+            <td>${r.date_reclamation}</td>
+            <td><span class="badge ${statBadge}">${r.statut}</span></td>
+            <td><button onclick="openModalTest('${d}')" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Traiter</button></td>
+        </tr>`;
+    }).join('');
+    document.getElementById('count_total').textContent = liste.length;
+    document.getElementById('count_pending').textContent = pending;
+}
+
+function remplirOptionsFiliere(data) {
+    const sel = document.getElementById('filterFiliere');
+    const filieres = [...new Set(data.map(r=>r.nom_filiere))];
+    sel.innerHTML = '<option value="">Toutes les filières</option>';
+    filieres.forEach(f => { if(f) { const o=document.createElement('option'); o.value=f; o.textContent=f; sel.appendChild(o); }});
+}
+
+function openModalTest(enc) {
+    const r = JSON.parse(decodeURIComponent(escape(atob(enc))));
+    document.getElementById('modalStudentName').innerText = `${r.nom} ${r.prenom} (${r.nom_filiere})`;
+    document.getElementById('modalSubject').innerText = r.matiere;
+    document.getElementById('modalMessage').innerText = r.motif;
+    document.getElementById('modalType').innerText = r.type==='EXAMEN'?'Examen':'Note / Moyenne';
+    document.getElementById('modalNotes').innerText = `${r.note_actuelle} → ${r.note_reclamee}`;
+    document.getElementById('notefinale').value = r.note_reclamee;
+    const pjZone = document.getElementById('pieceJointeZone');
+    const pjContenu = document.getElementById('pieceJointeContenu');
+    if (r.fichiers) {
+        pjZone.style.display='block';
+        const ext=r.fichiers.split('.').pop().toLowerCase();
+        const url=`https://iua-claim.rf.gd/api/uploads/${r.fichiers}`;
+        if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
+            pjContenu.innerHTML=`<img src="${url}" style="max-width:100%;border-radius:8px;border:1px solid #eee;">`;
+        } else {
+            pjContenu.innerHTML=`<a href="${url}" target="_blank" class="btn btn-ghost btn-sm"><i class="fa-solid fa-file"></i> Voir le fichier</a>`;
+        }
+    } else { pjZone.style.display='none'; }
+    document.getElementById('reclamationModal').style.display='flex';
+    window.currentReclamationId = r.id;
+}
+
+document.getElementById('closeX').onclick = () => document.getElementById('reclamationModal').style.display='none';
+document.getElementById('btnCancel').onclick = () => document.getElementById('reclamationModal').style.display='none';
+
+document.getElementById('btnRefuser').onclick = async () => {
+    const reponse = document.getElementById('profResponse').value;
+    if (!reponse.trim()) { alert('Veuillez saisir une raison de refus.'); return; }
+    await envoyerDecision(window.currentReclamationId, 'REFUSEE', reponse, null);
+};
+
+document.getElementById('btnSubmit').onclick = async () => {
+    const reponse = document.getElementById('profResponse').value;
+    const notefinale = document.getElementById('notefinale').value;
+    if (!reponse.trim()) { alert('Veuillez saisir une réponse.'); return; }
+    if (!notefinale) { alert('Veuillez saisir la note finale.'); return; }
+    await envoyerDecision(window.currentReclamationId, 'ACCEPTEE', reponse, notefinale);
+};
+
+async function envoyerDecision(id, statut, message, notefinale) {
+    try {
+        const res = await fetch('api/reclamations/update_statut.php', {
+            method: 'POST',
+            credentials: 'include', // ← ajouté
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, statut, message, note_finale: notefinale })
+        });
+        const result = await res.json();
+        if (result.success) {
+            document.getElementById('reclamationModal').style.display='none';
+            document.getElementById('profResponse').value='';
+            document.getElementById('notefinale').value='';
+            chargerReclamations();
+        } else { alert('Erreur : ' + result.message); }
+    } catch(err) { alert('Erreur réseau.'); }
+}
+
+async function chargerSession() {
+    try {
+        const res = await fetch('api/auth/get_session.php', { credentials:'include' });
+        const data = await res.json();
+        if (data.success) {
+            const name = `MR. ${data.nom} ${data.prenom}`;
+            document.getElementById('nom_prof').innerText = name;
+        }
+    } catch(err) {}
+}
+
+function configurerFiltres() {
+    const filtrer = () => {
+        const nom = document.getElementById('filterNom').value.toLowerCase();
+        const filiere = document.getElementById('filterFiliere').value;
+        const niveau = document.getElementById('filterNiveau').value;
+        const statut = document.getElementById('filterStatut').value;
+        const type = document.getElementById('filterType').value;
+        const valeurDebut = document.getElementById("dateDebut").value;
+        const valeurFin = document.getElementById("dateFin").value;
+
+        let resultats = toutesLesReclamations.filter(r => {
+            const matchNom = `${r.nom} ${r.prenom}`.toLowerCase().includes(nom);
+            const matchFiliere = !filiere || r.nom_filiere === filiere;
+            const matchNiveau = !niveau || r.niveau === niveau;
+            const matchStatut = !statut || r.statut === statut;
+            const matchType = !type || r.type === type;
+
+            let matchDate = true;
+            if (valeurDebut && valeurFin) {
+                const dateEl = new Date(r.date_reclamation).getTime();
+                const dateDebut = new Date(valeurDebut).getTime();
+                const dateFin = new Date(valeurFin).getTime();
+                matchDate = dateEl >= dateDebut && dateEl <= dateFin;
+            }
+
+            return matchNom && matchFiliere && matchNiveau && matchStatut && matchType && matchDate;
+        });
+
+        resultats.sort((a, b) => new Date(a.date_reclamation) - new Date(b.date_reclamation));
+        afficherDonnees(resultats);
+    };
+
+    document.getElementById('filterNom').addEventListener('input', filtrer);
+    ['filterFiliere', 'filterNiveau', 'filterStatut', 'filterType'].forEach(id => {
+        document.getElementById(id).addEventListener('change', filtrer);
+    });
+    document.getElementById('dateDebut').addEventListener('change', filtrer);
+    document.getElementById('dateFin').addEventListener('change', filtrer);
+
+    document.getElementById('btnResetFilters').onclick = () => {
+        ['filterNom', 'filterFiliere', 'filterNiveau', 'filterStatut', 'filterType', 'dateDebut', 'dateFin'].forEach(id => document.getElementById(id).value = '');
+        afficherDonnees(toutesLesReclamations);
+    };
+}
+</script>
+</body>
+</html>

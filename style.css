@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Bevan:ital@0;1&family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&display=swap');
+body{
+   background-color: #E8E8E8;
+   margin: 2% 8%;
+   height: 100vh;
+   overflow: hidden;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    color: #142547;
+}
+
+header h1{
+    font-family: "Zalando Sans SemiExpanded", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    color: #142547;
+
+}
+header .contacts{
+    margin: auto  0;
+}
+main{
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+   z-index: 1;
+}
+main h1{
+    font-family: 'calibri';
+    font-size: 4em;
+    color: #142547;
+}
+main p{
+    font-family: 'calibri';
+    position: relative;
+    bottom: 9%;
+    font-weight: 900;
+    animation: 1s fadein linear;
+}
+@keyframes fadein {
+    0%{
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+        bottom: 12%;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+main a{
+    text-decoration: none;
+    color: #142547;
+    font-weight: bolder;
+    transition: 0.4s;
+    box-shadow: #2e4b8631 0px 30px 60px -12px inset, #2e4b864b 0px 18px 36px -18px inset;
+    background-color: white;
+    padding: 20px;
+    border-radius: 30px;
+    font-family: 'arial';
+    position: relative;
+    bottom: 4%;
+    animation: 2s bounce linear;
+}
+main a:hover{
+    transform: scale(1.1);
+}
+@keyframes bounce {
+    0%{
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+        bottom: 7%;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.ml7 {
+  position: relative;
+  font-weight: 900;
+  font-size: 3.7em;
+}
+.ml7 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
+  overflow: hidden;
+}
+.ml7 .letters {
+  transform-origin: 0 100%;
+  display: inline-block;
+  line-height: 1em;
+  animation: 0.7s fadein linear;
+}
+@media screen and (min-width: 380px) and (max-width: 430px) {
+    .ml7{
+        font-size: 2.53em;
+        position: relative;
+
+        text-align: center;
+        animation: 1s ttl linear;
+    }
+    @keyframes ttl {
+        0% {
+            opacity: 0;
+            bottom: 3%;
+        }
+        100%{
+            opacity: 1;
+            bottom: 0;
+        }
+    }
+    main{
+        margin-top: 5%;
+    }
+    .bte-mod{
+        width: 40%;
+    }
+}

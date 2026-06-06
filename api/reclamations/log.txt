@@ -1,0 +1,156 @@
+DATE: 2026-02-05 23:07:30
+USER_ID: 18 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-05 23:08:29
+USER_ID: 18 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:39:46
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:40:24
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:40:50
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-10 13:40:57
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:41:16
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:41:53
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:43:08
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-10 13:46:55
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-10 13:47:37
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-10 13:47:50
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-10 13:47:59
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-10 15:50:51
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '6'
+---------------------------
+DATE: 2026-02-10 15:58:28
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:21:51
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '8'
+---------------------------
+DATE: 2026-02-17 15:21:57
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:33:20
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:34:26
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:38:17
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:43:36
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 15:47:45
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:22:00
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:23:24
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:23:42
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:47:41
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:47:57
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-17 16:52:20
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '6'
+---------------------------
+DATE: 2026-02-17 17:33:15
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '6'
+---------------------------
+DATE: 2026-02-17 17:37:20
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '6'
+---------------------------
+DATE: 2026-02-17 17:42:42
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '6'
+---------------------------
+DATE: 2026-02-21 15:40:54
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-21 16:03:21
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-23 14:10:52
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '9'
+---------------------------
+DATE: 2026-02-23 14:10:59
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '9'
+---------------------------
+DATE: 2026-02-23 14:11:12
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-02-26 14:11:03
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-03-05 18:36:38
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------
+DATE: 2026-03-06 14:23:18
+USER_ID: 10 | NIVEAU: [L1]
+MATIERE_ID envoyé: '7'
+---------------------------

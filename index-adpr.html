@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUA Claim – Espace Équipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+        *{margin:0;padding:0;box-sizing:border-box;}
+        :root{--blue:#2196F3;--blue-dark:#1a2e4a;--gray-bg:#f4f6fb;--text-dark:#1a2e4a;--text-muted:#7a8fa6;}
+        body{font-family:'Nunito',sans-serif;min-height:100vh;background:var(--gray-bg);}
+        header{display:flex;align-items:center;justify-content:space-between;padding:18px 6%;background:white;box-shadow:0 2px 16px rgba(26,46,74,.07);position:sticky;top:0;z-index:100;}
+        .logo{display:flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:900;color:var(--text-dark);text-decoration:none;}
+        .logo .dot{width:10px;height:10px;background:var(--blue);border-radius:50%;}
+        .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 76px);padding:60px 6%;text-align:center;}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(33,150,243,.1);color:var(--blue);padding:8px 18px;border-radius:50px;font-weight:700;font-size:.85rem;margin-bottom:24px;}
+        .hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--text-dark);line-height:1.15;margin-bottom:16px;}
+        .hero p{font-size:1.05rem;color:var(--text-muted);margin-bottom:48px;font-weight:600;max-width:500px;}
+        .portal-cards{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
+        .portal-card{background:white;border-radius:24px;padding:40px 32px;width:200px;text-align:center;cursor:pointer;box-shadow:0 4px 24px rgba(26,46,74,.08);transition:all .35s cubic-bezier(.175,.885,.32,1.275);text-decoration:none;border:2px solid transparent;}
+        .portal-card:hover{transform:translateY(-12px);border-color:var(--blue);box-shadow:0 20px 40px rgba(33,150,243,.2);}
+        .portal-card .card-icon{width:64px;height:64px;border-radius:18px;background:rgba(33,150,243,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.6rem;color:var(--blue);transition:.3s;}
+        .portal-card:hover .card-icon{background:var(--blue);color:white;}
+        .portal-card p{font-weight:800;color:var(--text-dark);font-size:1rem;text-transform:uppercase;letter-spacing:.5px;}
+        .btn-back{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--blue-dark);color:white;border-radius:50px;font-weight:700;font-size:.85rem;text-decoration:none;transition:.3s;}
+        .btn-back:hover{background:var(--blue);}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><span class="dot"></span> IUA Claim</a>
+        <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+    </header>
+    <section class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-lock"></i> Accès réservé à l'équipe</div>
+        <h1>Plateforme de Réclamation Universitaire</h1>
+        <p>Consultez et rectifiez les différentes requêtes des étudiants</p>
+        <div class="portal-cards">
+            <div class="portal-card" id="profCard">
+                <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                <p>Professeur</p>
+            </div>
+
+    </section>
+         <footer style="display:flex; justify-content:center;">© 2026 Abdoul Hamid AMAH — Tous droits réservés</footer>
+    <script>
+        document.getElementById('profCard').addEventListener('click', () => setTimeout(() => window.location.href='login_prof.html', 300));
+    </script>
+</body>
+</html>

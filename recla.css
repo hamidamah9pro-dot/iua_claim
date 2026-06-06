@@ -1,0 +1,338 @@
+:root {
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --primary-color: #34495e;
+    --accent-color: #3498db;
+    --text-main: #2c3e50;
+    --border-color: #dcdde1;
+    --success: #27ae60;
+    --warning: #f1c40f;
+    --danger: #e74c3c;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Barre utilisateur (déconnexion) --- */
+.deco1 {
+    background-color: #ffffff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 0 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 850px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* --- Boutons choix réclamation --- */
+.choice {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 850px;
+}
+
+/* --- Bouton Déconnexion --- */
+.deco {
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+#exam {
+    align-self: flex-end;
+    background-color: white;
+    color: var(--primary-color);
+    border: 3px solid var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+#notes {
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: white;
+   border: 3px solid var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+/* --- Conteneur Principal --- */
+.boite {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 850px;
+    box-sizing: border-box; /* Crucial pour le responsive */
+}
+
+/* --- Grille Responsive --- */
+.trsm {
+    display: grid;
+    /* 3 colonnes sur PC, 1 colonne sur mobile */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.motif {
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* --- Zone de Fichier --- */
+.fichier {
+    border: 2px dashed var(--border-color);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    width: 100%; /* Largeur totale sur mobile */
+    max-width: 300px; /* Limité sur PC */
+    display: block;
+    margin: 0 auto;
+    background: var(--primary-color);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- Tableau Responsive --- */
+.mes-reclamations {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 40px;
+    overflow-x: auto; /* Ajoute un scroll horizontal sur petit écran */
+}
+
+.recla-table {
+    width: 100%;
+    min-width: 600px; /* Empêche le tableau de trop s'écraser */
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+}
+
+.recla-table th, .recla-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: white;
+}
+.badge-warning { background: var(--warning); color: black; }
+.badge-success { background: var(--success); }
+.badge-danger { background: var(--danger); }
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Fenêtre du modal */
+.modal-content.student-view {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    overflow: hidden;
+    animation: slideDown 0.3s ease-out;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.modal-header {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #27ae60; /* Couleur verte pour signifier une réponse positive/traitée */
+    font-size: 1.2rem;
+}
+
+.close-modal {
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+/* Corps du modal */
+.modal-body {
+    padding: 25px;
+}
+
+.prof-info-card {
+    background: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.info-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* La boîte de message style "Bulle" */
+.prof-message-box {
+    background-color: #f0f7ff; /* Bleu très léger */
+    border-left: 4px solid #3498db;
+    padding: 20px;
+    font-style: normal;
+    color: #2c3e50;
+    border-radius: 4px;
+    min-height: 80px;
+    line-height: 1.6;
+    font-size: 15px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Boutons */
+.modal-footer {
+    padding: 15px 25px;
+    background: #f8f9fa;
+    text-align: right;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* Animation */
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.status-badge.acceptee { background: #e8f5e9; color: #2e7d32; }
+.status-badge.refusee { background: #ffebee; color: #c62828; }
+.status-badge.en_attente { background: #fff3e0; color: #ef6c00; }
+/* ===== RESPONSIVE ===== */
+
+/* Mobile (< 600px) */
+@media screen and (max-width: 599px) {
+    body {
+        padding: 10px;
+    }
+    .deco1 {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .choice {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+    #notes, #exam {
+        width: 100%;
+        text-align: center;
+    }
+    .boite {
+        padding: 15px;
+    }
+    .trsm {
+        grid-template-columns: 1fr;
+    }
+    .recla-table th, .recla-table td {
+        padding: 8px 6px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablette (600px - 1000px) */
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+    .deco1 {
+        width: 90%;
+    }
+    .boite {
+        max-width: 95%;
+    }
+    .trsm {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

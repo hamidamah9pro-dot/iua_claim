@@ -1,0 +1,171 @@
+/* --- Reset & Variables (Identiques pour la cohérence) --- */
+:root {
+    --primary-blue: #142547;
+    --accent-blue: #2e4b86;
+    --light-gray: #f8f9fa;
+    --white: #ffffff;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --glass: rgba(255, 255, 255, 0.9);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    font-weight: 800;
+}
+
+/* Style spécifique pour l'icône de verrou */
+#lock {
+    font-size: 1.2rem;
+    color: var(--accent-blue);
+    opacity: 0.7;
+}
+
+.contacts {
+    display: flex;
+    gap: 15px;
+}
+
+.contacts i {
+    font-size: 1.1rem;
+    color: var(--primary-blue);
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 10px;
+    background: #f1f5f9;
+    border-radius: 50%;
+}
+
+.contacts i:hover {
+    background: var(--primary-blue);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* --- Main Content --- */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.ml7 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-blue);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.ml7 .letter {
+    display: inline-block;
+}
+
+main p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+}
+
+main a {
+    text-decoration: none;
+    background: var(--primary-blue);
+    color: white;
+    padding: 18px 50px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 15px -3px rgba(20, 37, 71, 0.2);
+}
+
+main a:hover {
+    background: var(--accent-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 25px -5px rgba(20, 37, 71, 0.3);
+}
+
+/* --- Modal --- */
+.bx-mod {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 2000;
+}
+
+.bte-mod {
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.bte-mod h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+}
+
+.bte-mod button {
+    margin-top: 2rem;
+    background: #f1f5f9;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--primary-blue);
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+    .ml7 { font-size: 2rem; }
+    header h1 { font-size: 1.1rem; }
+}

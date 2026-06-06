@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUA Claim – Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue: #2196F3;
+            --blue-dark: #1a2e4a;
+            --blue-mid: #1565C0;
+            --white: #ffffff;
+            --gray-bg: #f4f6fb;
+            --text-dark: #1a2e4a;
+            --text-muted: #7a8fa6;
+            --input-bg: #eef1f7;
+            --radius: 50px;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── CÔTÉ GAUCHE ── */
+        .left-panel {
+            width: 50%;
+            background: linear-gradient(145deg, #2196F3 0%, #1976D2 50%, #1a2e4a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        /* Grande courbe blanche en bas-droite */
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 320px;
+            height: 320px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: -60px;
+            width: 240px;
+            height: 240px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+        }
+
+        .left-panel .brand {
+            color: white;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            z-index: 1;
+        }
+
+        .left-panel .tagline {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: center;
+            z-index: 1;
+            margin-bottom: 48px;
+        }
+
+        /* Illustration SVG intégrée */
+        .illustration {
+            z-index: 1;
+            width: 300px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
+        /* ── CÔTÉ DROIT ── */
+        .right-panel {
+            width: 50%;
+            background: var(--gray-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 60px;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 420px;
+            animation: slideUp 0.6s cubic-bezier(.16,1,.3,1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-box h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 24px 16px 52px;
+            background: var(--input-bg);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-group input::placeholder { color: var(--text-muted); font-weight: 600; }
+
+        .input-group input:focus {
+            border-color: var(--blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(33,150,243,0.12);
+        }
+
+        .input-group .icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .btn-connect {
+            width: 100%;
+            padding: 17px;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            box-shadow: 0 8px 24px rgba(33,150,243,0.35);
+        }
+
+        .btn-connect:hover {
+            background: var(--blue-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(33,150,243,0.45);
+        }
+
+        .btn-connect:active { transform: translateY(0); }
+
+        .social-section {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .social-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .social-icons a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #dde3ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            transform: translateY(-3px);
+        }
+
+        /* Message d'erreur */
+        .msg-error {
+            background: #fff0f0;
+            border: 1.5px solid #f5b7b1;
+            color: #c0392b;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: none;
+            text-align: center;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; }
+            .left-panel { width: 100%; padding: 40px 30px; min-height: 280px; }
+            .illustration { width: 180px; }
+            .right-panel { width: 100%; padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GAUCHE -->
+    <div class="left-panel">
+        <div class="brand">IUA Claim</div>
+        <div class="tagline">IUA Claim, simplifiez vos réclamations</div>
+        <!-- Illustration SVG inline -->
+        <svg class="illustration" viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fusée -->
+            <ellipse cx="105" cy="210" rx="28" ry="10" fill="rgba(255,255,255,0.15)"/>
+            <path d="M105 60 C105 60 75 100 75 160 L135 160 C135 100 105 60 105 60Z" fill="white" opacity="0.9"/>
+            <path d="M75 160 L60 185 L105 175 L150 185 L135 160Z" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="105" cy="115" r="14" fill="#2196F3" stroke="white" stroke-width="3"/>
+            <path d="M75 145 L55 160 L75 160Z" fill="rgba(255,255,255,0.5)"/>
+            <path d="M135 145 L155 160 L135 160Z" fill="rgba(255,255,255,0.5)"/>
+            <!-- Flamme -->
+            <ellipse cx="105" cy="183" rx="10" ry="16" fill="#FFC107" opacity="0.9"/>
+            <ellipse cx="105" cy="188" rx="6" ry="10" fill="#FF9800"/>
+            <!-- Plantes -->
+            <path d="M50 220 Q40 195 55 185 Q60 200 50 220Z" fill="rgba(255,255,255,0.3)"/>
+            <path d="M50 220 Q65 200 60 185 Q55 200 50 220Z" fill="rgba(255,255,255,0.2)"/>
+            <path d="M160 220 Q150 195 165 185 Q170 200 160 220Z" fill="rgba(255,255,255,0.3)"/>
+            <path d="M160 220 Q175 200 170 185 Q165 200 160 220Z" fill="rgba(255,255,255,0.2)"/>
+            <!-- Personnage -->
+            <circle cx="205" cy="105" r="22" fill="#FFCCBC"/>
+            <path d="M183 155 Q183 130 205 128 Q227 130 227 155 L227 195 L183 195Z" fill="#37474F"/>
+            <path d="M183 155 L165 175 L175 178 L183 168Z" fill="#37474F"/>
+            <path d="M227 155 L245 175 L235 178 L227 168Z" fill="#37474F"/>
+            <path d="M183 195 L183 230 L193 230 L197 195Z" fill="#455A64"/>
+            <path d="M227 195 L227 230 L217 230 L213 195Z" fill="#455A64"/>
+            <!-- Plante bleue personnage -->
+            <path d="M240 230 Q230 210 240 200 Q248 212 240 230Z" fill="rgba(33,150,243,0.6)"/>
+            <path d="M255 230 Q245 215 255 200 Q263 215 255 230Z" fill="rgba(33,150,243,0.5)"/>
+            <path d="M247 230 L247 200" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <!-- Étoiles déco -->
+            <circle cx="30" cy="50" r="3" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="260" cy="30" r="2" fill="rgba(255,255,255,0.4)"/>
+            <circle cx="270" cy="120" r="4" fill="rgba(255,193,7,0.6)"/>
+            <circle cx="20" cy="140" r="2.5" fill="rgba(255,255,255,0.3)"/>
+        </svg>
+    </div>
+
+    <!-- DROITE -->
+    <div class="right-panel">
+        <div class="form-box">
+            <h2>IUA Claim</h2>
+
+            <div class="msg-error" id="errMsg">Identifiants incorrects. Réessayez.</div>
+
+            <form id="Form">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope icon"></i>
+                    <input type="text" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-id-card icon"></i>
+                    <input type="text" id="matricule" placeholder="Matricule IUA" required>
+                </div>
+                <button type="submit" class="btn-connect" id="btnSubmit">SE CONNECTER</button>
+            </form>
+
+           
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+        const form = document.getElementById('Form');
+        const errMsg = document.getElementById('errMsg');
+        const btn = document.getElementById('btnSubmit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errMsg.style.display = 'none';
+            btn.textContent = 'Connexion...';
+            btn.disabled = true;
+
+            const data = {
+                matricule: document.getElementById('matricule').value,
+                email: document.getElementById('email').value
+            };
+
+            try {
+                const res = await fetch('api/auth/login_student.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await res.json();
+
+                if (result.success) {
+                    sessionStorage.setItem('users', JSON.stringify(result));
+                    window.location.href = "recla.html";
+                } else {
+                    errMsg.style.display = 'block';
+                    errMsg.textContent = result.message || 'Identifiants incorrects.';
+                    btn.textContent = 'SE CONNECTER';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error(err);
+                errMsg.style.display = 'block';
+                errMsg.textContent = 'Erreur serveur. Réessayez.';
+                btn.textContent = 'SE CONNECTER';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

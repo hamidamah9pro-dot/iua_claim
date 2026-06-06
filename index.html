@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>IUA Claim</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue: #2196F3;
+            --blue-dark: #1a2e4a;
+            --blue-mid: #1565C0;
+            --white: #ffffff;
+            --gray-bg: #f4f6fb;
+            --text-dark: #1a2e4a;
+            --text-muted: #7a8fa6;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            background: var(--gray-bg);
+            overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 6%;
+            background: white;
+            box-shadow: 0 2px 16px rgba(26,46,74,0.07);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo-dot {
+            width: 10px; height: 10px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            background: var(--gray-bg);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: all 0.25s;
+        }
+
+        .icon-btn:hover {
+            background: var(--blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-admin {
+            padding: 10px 22px;
+            background: var(--blue-dark);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-admin:hover { background: var(--blue); }
+
+        /* ── HERO ── */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 76px);
+            padding: 60px 6%;
+            gap: 60px;
+        }
+
+        .hero-content {
+            max-width: 560px;
+            animation: heroIn 0.8s cubic-bezier(.16,1,.3,1) both;
+        }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateX(-40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(33,150,243,0.1);
+            color: var(--blue);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+
+        .hero-badge span { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--blue);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            font-weight: 600;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: var(--blue);
+            color: white;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+           
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-mid);
+            transform: translateY(-3px);
+           
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid #dde3ef;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        /* Illustration côté droit */
+        .hero-visual {
+            flex: 0 0 auto;
+            animation: heroRight 0.8s 0.2s cubic-bezier(.16,1,.3,1) both;
+        }
+
+        @keyframes heroRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .visual-card {
+            background: linear-gradient(145deg, #2196F3, #1a2e4a);
+            border-radius: 32px;
+            padding: 40px;
+            width: 380px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 32px 64px rgba(33,150,243,0.3);
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+        }
+
+        .visual-card::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 160px; height: 160px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .vc-title {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .vc-head {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 28px;
+        }
+
+        .vc-stat {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+
+        .vc-stat-icon {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .vc-stat-info small {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .vc-stat-info strong {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 800;
+        }
+
+        .vc-status {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 50px;
+            margin-left: 8px;
+        }
+
+        .vc-footer {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .vc-footer span {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .vc-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .vc-dots span {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .vc-dots span:first-child { background: white; }
+
+        /* ── MODAL CONTACT ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26,46,74,0.7);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.15);
+            animation: modalIn 0.4s cubic-bezier(.16,1,.3,1);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-icon {
+            width: 60px; height: 60px;
+            background: rgba(33,150,243,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--blue);
+            font-size: 1.4rem;
+        }
+
+        .modal-box h2 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .modal-box .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .contact-item i { color: var(--blue); }
+        .contact-item a { color: var(--text-dark); text-decoration: none; font-weight: 700; }
+
+        .modal-box button {
+            margin-top: 24px;
+            padding: 13px 40px;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-box button:hover { background: var(--blue-mid); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; gap: 40px; }
+            .hero-actions { justify-content: center; }
+            .visual-card { width: 100%; max-width: 380px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            IUA Claim
+        </a>
+        <div class="header-right">
+            <button class="icon-btn contact-trigger" title="Téléphone"><i class="fa-solid fa-phone"></i></button>
+            <button class="icon-btn contact-trigger" title="Email"><i class="fa-solid fa-envelope"></i></button>
+            <a href="./index-adpr.html" class="btn-admin"><i class="fa-solid fa-lock"></i> Prof</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+          
+            <h1>Une façon plus simple de <span class="highlight">régler vos problèmes</span></h1>
+            <p>Envoyez vos réclamations à l'administration, et elle se charge de les traiter et vous répondre rapidement.</p>
+            <div class="hero-actions">
+                <a href="./login.html" class="btn-primary">
+                    <i class="fa-solid fa-arrow-right"></i> Commencer
+                </a>
+                <button class="btn-secondary contact-trigger">
+                    <i class="fa-solid fa-phone"></i> Nous contacter
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-card">
+                <div class="vc-title">Institut Universitaire d'Abidjan</div>
+                <div class="vc-head">Espace Étudiant</div>
+
+                <div class="vc-stat">
+                    <div class="vc-stat-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="vc-stat-info">
+                        <small>Mes réclamations</small>
+                        <strong>Soumettre une requête <span class="vc-status">ACTIF</span></strong>
+                    </div>
+                </div>
+
+                <div class="vc-stat">
+                    <div class="vc-stat-icon"><i class="fa-solid fa-bell"></i></div>
+                    <div class="vc-stat-info">
+                        <small>Notifications</small>
+                        <strong>Suivi en temps réel</strong>
+                    </div>
+                </div>
+
+                <div class="vc-stat">
+                    <div class="vc-stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="vc-stat-info">
+                        <small>Sécurité</small>
+                        <strong>Accès sécurisé & confidentiel</strong>
+                    </div>
+                </div>
+
+                <div class="vc-footer">
+                    <span>iua-claim.rf.gd</span>
+                    <div class="vc-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal contact -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fa-solid fa-address-book"></i></div>
+            <h2>Institut Universitaire d'Abidjan</h2>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <a href="tel:+2250797895806">(+225) 07-00-XX-XX-XX</a>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:request@iuaclaim.org">request@iuaclaim.org</a>
+            </div>
+            <button id="closeModal">Fermer</button>
+        </div>
+    </div>
+    <footer style="display:flex; justify-content:center;">© 2026 Abdoul Hamid AMAH — Tous droits réservés</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>
+        // Modal contact
+        const overlay = document.getElementById('modalOverlay');
+        const closeBtn = document.getElementById('closeModal');
+        document.querySelectorAll('.contact-trigger').forEach(el => {
+            el.addEventListener('click', () => overlay.style.display = 'flex');
+        });
+        closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.style.display = 'none'; });
+    </script>
+</body>
+</html>

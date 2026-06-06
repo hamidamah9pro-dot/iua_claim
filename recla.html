@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Réclamations – IUA Claim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style-myiua.css">
+</head>
+<body>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            IUA Claim
+        </div>
+        <nav class="sidebar-nav">
+            <a class="nav-item active" href="recla.html">
+                <i class="fa-solid fa-file-lines"></i> Mes Réclamations
+            </a>
+            <div style="display: none;" class="sidebar-section-label">Mon compte</div>
+            <a style="display: none;" class="nav-item" href="#"><i class="fa-solid fa-user"></i> Profil</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="location.href='api/auth/logout.php'">
+                <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="topbar-title">
+                <h1>Mes Réclamations</h1>
+                <p>Envoyez et suivez vos réclamations</p>
+            </div>
+            <div class="topbar-right">
+                <div class="user-badge">
+                    <div class="user-avatar" id="avatar_initials">ET</div>
+                    <span id="nom_etudiant">Chargement...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOGGLE TYPE -->
+        <div class="toggle-group">
+            <button class="toggle-btn active" id="notes" onclick="switchType('NOTE')">
+                <i class="fa-solid fa-chart-bar"></i> Notes – Moyennes
+            </button>
+            <button class="toggle-btn" id="exam" onclick="switchType('EXAMEN')">
+                <i class="fa-solid fa-graduation-cap"></i> Examen
+            </button>
+        </div>
+
+        <!-- FORMULAIRE -->
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-plus-circle"></i> <span id="form_titre">Nouvelle réclamation de note</span></div>
+            <form id="reclamationForm" enctype="multipart/form-data">
+                <input type="hidden" id="type_reclamation" value="NOTE">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Matière</label>
+                        <select id="matiere_id" class="form-control" required>
+                            <option value="">Chargement des matières...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Note actuelle</label>
+                        <input type="number" id="note_actuelle" class="form-control" placeholder="Ex: 12.5" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" id="label_note_reclamee">Note réclamée</label>
+                        <input type="number" id="note_reclamee" class="form-control" placeholder="Ex: 15" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Motif de la réclamation</label>
+                    <textarea id="motif" class="form-control" rows="3" placeholder="Expliquez la raison de votre réclamation..." style="resize:vertical;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pièce jointe (optionnel)</label>
+                    <div class="file-zone">
+                        <input type="file" name="fichiers" id="fichiers">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Cliquez ou glissez un fichier ici</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer la réclamation
+                </button>
+                <div class="toast-success" id="confirmation">
+                    <i class="fa-solid fa-circle-check"></i> Réclamation envoyée avec succès !
+                </div>
+            </form>
+        </div>
+
+        <!-- TABLEAU RÉCLAMATIONS -->
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-list-check"></i> Historique de mes réclamations</div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Matière</th>
+                            <th>Professeur</th>
+                            <th>Note</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_reclamations_body">
+                        <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">Chargement...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- MODAL RÉPONSE -->
+<div id="viewResponseModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-envelope-open-text"></i> Détails de la réponse</h3>
+            <button class="modal-close" id="btnExitStudent"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="info-grid">
+                <div class="info-item">
+                    <small>Matière</small>
+                    <strong id="respMatiere">—</strong>
+                </div>
+                <div class="info-item">
+                    <small>Statut</small>
+                    <strong id="respStatut">—</strong>
+                </div>
+            </div>
+            <label class="form-label" style="margin-bottom:10px;">Commentaire du professeur</label>
+            <div id="respMessage" class="message-box">Aucune réponse pour le moment.</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" id="btnExitStudent2">Fermer</button>
+        </div>
+    </div>
+</div>
+ <footer style="display:flex; justify-content:center;">© 2026 Abdoul Hamid AMAH — Tous droits réservés</footer>
+<script>
+let typeActif = 'NOTE';
+
+function switchType(type) {
+    typeActif = type;
+    document.getElementById('type_reclamation').value = type;
+    if (type === 'NOTE') {
+        document.getElementById('form_titre').innerText = 'Nouvelle réclamation de note';
+        document.getElementById('label_note_reclamee').innerText = 'Note réclamée';
+        document.getElementById('notes').classList.add('active');
+        document.getElementById('exam').classList.remove('active');
+    } else {
+        document.getElementById('form_titre').innerText = 'Réclamation Examen';
+        document.getElementById('label_note_reclamee').innerText = 'Note estimée';
+        document.getElementById('exam').classList.add('active');
+        document.getElementById('notes').classList.remove('active');
+    }
+    afficherReclamations(typeActif);
+}
+
+function afficherReclamations(type) {
+    const tbody = document.getElementById('my_reclamations_body');
+    const toutes = Object.values(window.reclamationsData || {});
+    const filtrees = toutes.filter(r => r.type === type);
+    if (filtrees.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:30px;">Aucune réclamation</td></tr>';
+        return;
+    }
+    tbody.innerHTML = filtrees.map(r => {
+        let badgeClass = r.statut === 'EN_ATTENTE' ? 'badge-warning' : r.statut === 'ACCEPTEE' ? 'badge-success' : 'badge-danger';
+        return `<tr>
+            <td>${new Date(r.date_reclamation).toLocaleDateString('fr-FR')}</td>
+            <td>${r.matiere}</td>
+            <td>M. ${r.prof}</td>
+            <td>${r.note_actuelle} → <strong>${r.note_reclamee}</strong></td>
+            <td><span class="badge ${badgeClass}">${r.statut}</span></td>
+            <td><button onclick="openStudentResponse(${r.id})" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i> Voir</button></td>
+        </tr>`;
+    }).join('');
+}
+
+async function chargerMatieres() {
+    try {
+        const res = await fetch('api/matieres/get_by_student.php', { credentials: 'include' });
+        const matieres = await res.json();
+        const sel = document.getElementById('matiere_id');
+        sel.innerHTML = '<option value="">-- Choisissez une matière --</option>';
+        matieres.forEach(m => {
+            const o = document.createElement('option');
+            o.value = m.id; o.textContent = m.nom;
+            sel.appendChild(o);
+        });
+    } catch (err) { console.error(err); }
+}
+
+document.getElementById('reclamationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append('matiere_id', document.getElementById('matiere_id').value);
+    fd.append('note_actuelle', document.getElementById('note_actuelle').value);
+    fd.append('note_reclamee', document.getElementById('note_reclamee').value);
+    fd.append('motif', document.getElementById('motif').value);
+    fd.append('type', document.getElementById('type_reclamation').value);
+    const f = document.getElementById('fichiers');
+    if (f.files.length > 0) fd.append('fichiers', f.files[0]);
+    try {
+        const res = await fetch('api/reclamations/create.php', { method:'POST', credentials:'include', body:fd });
+        const result = await res.json();
+        if (result.success) {
+            const c = document.getElementById('confirmation');
+            c.style.display = 'flex';
+            document.getElementById('reclamationForm').reset();
+            chargerMesReclamations();
+            setTimeout(() => c.style.display='none', 5000);
+        } else alert(result.message || 'Erreur');
+    } catch(err) { alert('Erreur serveur.'); }
+});
+
+async function chargerMesReclamations() {
+    try {
+        const res = await fetch('api/reclamations/mes_reclamations.php');
+        const data = await res.json();
+        window.reclamationsData = {};
+        data.forEach(r => window.reclamationsData[r.id] = r);
+        afficherReclamations(typeActif);
+    } catch(err) { console.error(err); }
+}
+
+async function chargerSession() {
+    try {
+        const res = await fetch('api/auth/get_session.php', { credentials:'include' });
+        const data = await res.json();
+        if (data.success) {
+            const name = `${data.prenom} ${data.nom}`;
+            document.getElementById('nom_etudiant').innerText = name;
+            document.getElementById('avatar_initials').innerText = (data.prenom[0]||'') + (data.nom[0]||'');
+        }
+    } catch(err) {}
+}
+
+function openStudentResponse(id) {
+    const r = window.reclamationsData[id];
+    if (!r) return;
+    document.getElementById('respMatiere').innerText = r.matiere || '—';
+    document.getElementById('respMessage').innerText = r.retour_prof?.trim() || 'Aucune réponse du professeur pour le moment.';
+    const s = document.getElementById('respStatut');
+    s.innerHTML = `<span class="badge ${r.statut==='EN_ATTENTE'?'badge-warning':r.statut==='ACCEPTEE'?'badge-success':'badge-danger'}">${r.statut}</span>`;
+    document.getElementById('viewResponseModal').style.display = 'flex';
+}
+
+document.getElementById('btnExitStudent').onclick = () => document.getElementById('viewResponseModal').style.display='none';
+document.getElementById('btnExitStudent2').onclick = () => document.getElementById('viewResponseModal').style.display='none';
+
+document.addEventListener('DOMContentLoaded', () => {
+    chargerSession();
+    chargerMatieres();
+    chargerMesReclamations();
+});
+</script>
+</body>
+</html>
